@@ -24,7 +24,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _canvas = GetComponent<Canvas>();
+        _canvas = GetComponentInParent<Canvas>();
         _originalScale = _rectTransform.localScale;
         _originalPosition = _rectTransform.localPosition;
         _originalRotation = _rectTransform.rotation;
