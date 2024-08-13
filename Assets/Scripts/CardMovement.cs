@@ -21,6 +21,10 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private GameObject _glowEffect;
     [SerializeField] private GameObject _playArrow;
 
+    [Range(0f, 1.0f)]
+    [SerializeField] private float _lerpFactor;
+
+
     void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
@@ -103,13 +107,17 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 Vector2 localPointerPosition;
                 if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPointerPosition))
                 {
-                    _rectTransform.position = Input.mousePosition;
+                    // _rectTransform.position = Input.mousePosition;
+                    _rectTransform.position = Vector3.Lerp(_rectTransform.position, Input.mousePosition, _lerpFactor);
+
 
                     if (_rectTransform.localPosition.y > _cardPlay.y)
                     {
                         _currentState = 3;
                         _playArrow.SetActive(true);
                         _rectTransform.localPosition = _playPosition;
+                        _rectTransform.position = Vector3.Lerp(_rectTransform.position, _playPosition, _lerpFactor);
+
                     }
                 }
             }
@@ -133,7 +141,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         _rectTransform.localPosition = _playPosition;
         _rectTransform.localRotation = Quaternion.identity;
 
-        if(Input.mousePosition.y < _playPosition.y)
+        if (Input.mousePosition.y < _playPosition.y)
         {
             _currentState = 2;
             _playArrow.SetActive(false);
