@@ -1118,10 +1118,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectScale: 1.1
-  _cardPlay: {x: 0, y: 0}
-  _playPosition: {x: 0, y: 0, z: 0}
+  _cardPlay: {x: 0, y: 400}
+  _playPosition: {x: -600, y: 400, z: 0}
   _glowEffect: {fileID: 6730408325171031093}
-  _playArrow: {fileID: 0}
+  _playArrow: {fileID: 176107747452401955}
+  _lerpFactor: 0.25
 --- !u!1 &5965352275316877615
 GameObject:
   m_ObjectHideFlags: 0
