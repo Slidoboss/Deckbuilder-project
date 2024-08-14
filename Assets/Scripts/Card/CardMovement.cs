@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -8,8 +9,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 {
     private RectTransform _rectTransform;
     private Canvas _canvas;
-    private Vector2 _originalLocalPointerPosition;
-    private Vector3 _originalPanelLocalPosition;
+    private RectTransform _canvasRectTransform;
     private Vector3 _originalScale;
     private int _currentState = 0;
     private Quaternion _originalRotation;
@@ -23,19 +23,46 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     [Range(0f, 1.0f)]
     [SerializeField] private float _lerpFactor;
+    [SerializeField] private int _cardPlayDivider = 4;
+    [SerializeField] private float _cardPlayMultiplier = 1f;
+    [SerializeField] private bool _needUpdateCardPlayPosition = false;
+    [SerializeField] private int _playPositionYDivider = 2;
+    [SerializeField] private float _playPositionYMultiplier = 1f;
+    [SerializeField] private int _playPositionXDivider = 4;
+    [SerializeField] private float _playPositionXMultiplier = 1f;
+    [SerializeField] private bool _needUpdatePlayPosition = false;
 
 
     void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvas = GetComponentInParent<Canvas>();
+
+        if (_canvas != null)
+        {
+            _canvasRectTransform = _canvas.GetComponent<RectTransform>();
+        }
         _originalScale = _rectTransform.localScale;
         _originalPosition = _rectTransform.localPosition;
         _originalRotation = _rectTransform.rotation;
+
+        UpdateCardPlayPosition();
+        UpdatePlayPosition();
+
     }
+
 
     void Update()
     {
+        if (_needUpdateCardPlayPosition)
+        {
+            UpdateCardPlayPosition();
+        }
+        if (_needUpdatePlayPosition)
+        {
+            UpdatePlayPosition();
+        }
+
         switch (_currentState)
         {
             case 1:
@@ -62,7 +89,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     {
         _currentState = 0;
         _rectTransform.localScale = _originalScale;
-        _rectTransform.rotation = _originalRotation;
+        _rectTransform.localRotation = _originalRotation;
         _rectTransform.localPosition = _originalPosition;
         _glowEffect.SetActive(false);
         _playArrow.SetActive(false);
@@ -92,9 +119,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         if (_currentState == 1)
         {
             _currentState = 2;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out _originalLocalPointerPosition);
-            _originalPanelLocalPosition = _rectTransform.localPosition;
-
         }
     }
     //For when the mouse is pressed and dragged around the screen.
@@ -102,24 +126,12 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     {
         if (_currentState == 2)
         {
-            if (_currentState == 2)
+            if (Input.mousePosition.y > _cardPlay.y)
             {
-                Vector2 localPointerPosition;
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPointerPosition))
-                {
-                    // _rectTransform.position = Input.mousePosition;
-                    _rectTransform.position = Vector3.Lerp(_rectTransform.position, Input.mousePosition, _lerpFactor);
+                _currentState = 3;
+                _playArrow.SetActive(true);
+                _rectTransform.localPosition = Vector3.Lerp(_rectTransform.position, _playPosition, _lerpFactor);
 
-
-                    if (_rectTransform.localPosition.y > _cardPlay.y)
-                    {
-                        _currentState = 3;
-                        _playArrow.SetActive(true);
-                        _rectTransform.localPosition = _playPosition;
-                        _rectTransform.position = Vector3.Lerp(_rectTransform.position, _playPosition, _lerpFactor);
-
-                    }
-                }
             }
         }
     }
@@ -135,16 +147,38 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     {
         //Set rotation to zero.
         _rectTransform.localRotation = Quaternion.identity;
+        _rectTransform.position = Vector3.Lerp(_rectTransform.position, Input.mousePosition, _lerpFactor);
     }
     private void HandlePlayState()
     {
         _rectTransform.localPosition = _playPosition;
         _rectTransform.localRotation = Quaternion.identity;
 
-        if (Input.mousePosition.y < _playPosition.y)
+        if (Input.mousePosition.y < _cardPlay.y)
         {
             _currentState = 2;
             _playArrow.SetActive(false);
+        }
+    }
+
+    private void UpdatePlayPosition()
+    {
+         if (_canvasRectTransform != null && _playPositionYDivider != 0 && _playPositionXDivider != 0)
+         {
+            float segmentX = _playPositionXMultiplier/_playPositionXDivider;
+            float segmentY = _playPositionYMultiplier/_playPositionYDivider;
+
+            _cardPlay.x = _canvasRectTransform.rect.width * segmentX;
+            _cardPlay.y = _canvasRectTransform.rect.height * segmentY;
+         }
+    }
+
+    private void UpdateCardPlayPosition()
+    {
+        if (_cardPlayDivider != 0 && _canvasRectTransform != null)
+        {
+            float segment = _cardPlayMultiplier/ _cardPlayDivider;
+            _cardPlay.y = _canvasRectTransform.rect.height * segment;
         }
     }
 
