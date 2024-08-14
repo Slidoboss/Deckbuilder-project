@@ -7,7 +7,7 @@ public class UIObjectPositioner : MonoBehaviour
     public int widthDivider = 2;
     public int heightDivider = 2;
     public float widthMultiplier = 1f;
-    public float heightMultiplier = 1f;
+    public float heightMultiplier = 0f;
     public bool updatePosition = false;
 
     void Start()
@@ -37,7 +37,7 @@ public class UIObjectPositioner : MonoBehaviour
             objectToPosition.pivot = new Vector2(0.5f, 0.5f);
 
             //Set local position to zero to align with the anchor point.
-            objectToPosition.localPosition = Vector2.zero;
+            objectToPosition.anchoredPosition = Vector2.zero;
         }
     }
 }
