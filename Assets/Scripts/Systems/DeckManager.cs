@@ -20,12 +20,11 @@ public class DeckManager : MonoBehaviour
         //Adds all loaded cards to allcards list.
         allCards.AddRange(cards);
 
-        HandManager hand = FindObjectOfType<HandManager>();
         _handManager = FindObjectOfType<HandManager>();
         maxHandSize = _handManager.maxHandSize;
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < startingHandSize; i++)
         {
-            DrawCard(hand);
+            DrawCard(_handManager);
         }
     }
     void Update()
