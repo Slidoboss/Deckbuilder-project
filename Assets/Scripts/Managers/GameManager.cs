@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public static DeckManager DeckManager{ get; private set; }
-    public static AudioManager AudioManager { get; private set; }
-    public static OptionsManager OptionsManager { get; private set; }
+    public DeckManager DeckManager{ get; private set; }
+    public AudioManager AudioManager { get; private set; }
+    public OptionsManager OptionsManager { get; private set; }
     private int _playerHealth;
     private int _playerXP;
     private int _difficulty = 5;
