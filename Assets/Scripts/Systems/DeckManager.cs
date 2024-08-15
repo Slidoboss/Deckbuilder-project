@@ -7,6 +7,10 @@ public class DeckManager : MonoBehaviour
 {
     public List<Card> allCards = new List<Card>();
     private int _currentIndex = 0;
+    public int startingHandSize = 6;
+    public int maxHandSize;
+    public int currentHandSize;
+    private HandManager _handManager;
 
     void Start()
     {
@@ -17,17 +21,28 @@ public class DeckManager : MonoBehaviour
         allCards.AddRange(cards);
 
         HandManager hand = FindObjectOfType<HandManager>();
-        for(int i = 0; i < 5; i++)
+        _handManager = FindObjectOfType<HandManager>();
+        maxHandSize = _handManager.maxHandSize;
+        for (int i = 0; i < 6; i++)
         {
             DrawCard(hand);
+        }
+    }
+    void Update()
+    {
+        if (_handManager != null)
+        {
+            currentHandSize = _handManager.cardsInHand.Count;
         }
     }
     public void DrawCard(HandManager handManager)
     {
         if (allCards.Count == 0) return;
-
-        Card nextCard = allCards[_currentIndex];
-        handManager.AddCardToHand(nextCard);
-        _currentIndex = (_currentIndex + 1) % allCards.Count;
+        if (currentHandSize < maxHandSize)
+        {
+            Card nextCard = allCards[_currentIndex];
+            handManager.AddCardToHand(nextCard);
+            _currentIndex = (_currentIndex + 1) % allCards.Count;
+        }
     }
 }
