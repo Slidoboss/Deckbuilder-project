@@ -6,7 +6,6 @@ using System;
 
 public class HandManager : MonoBehaviour
 {
-    public DeckManager deckManager;
     public GameObject cardPrefab;
     public Transform handTranform; //To get hand position on Screen
     public float fanSpread = -8f; //determines how far apart the card with be in hand.
