@@ -166,8 +166,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             float segmentX = _playPositionXMultiplier/_playPositionXDivider;
             float segmentY = _playPositionYMultiplier/_playPositionYDivider;
 
-            _cardPlay.x = _canvasRectTransform.rect.width * segmentX;
-            _cardPlay.y = _canvasRectTransform.rect.height * segmentY;
+            _playPosition.x = _canvasRectTransform.rect.width * segmentX;
+            _playPosition.y = _canvasRectTransform.rect.height * segmentY;
          }
     }
 
