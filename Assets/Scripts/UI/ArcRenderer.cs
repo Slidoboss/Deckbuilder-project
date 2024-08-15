@@ -10,6 +10,8 @@ public class ArcRenderer : MonoBehaviour
     public float spacing = 50;
     public float arrowAngleAdjustment = 0;
     public int dotToSkip = 1;
+    public float baseScreenWidth = 1920f;
+    [SerializeField] private float _spacingScale;
     private List<GameObject> _dotPool = new List<GameObject>();
     private GameObject _arrowInstance;
     private Vector3 _arrowDirection;
@@ -21,6 +23,12 @@ public class ArcRenderer : MonoBehaviour
         _arrowInstance = Instantiate(arrowPrefab, transform);
         _arrowInstance.transform.localPosition = Vector3.zero;
         InitializeDotPool(poolSize);
+
+        _spacingScale = Screen.width / baseScreenWidth;//Scales the dot spacing based on the current width of the screen.
+    }
+    void OnEnable()
+    {
+        _spacingScale = Screen.width / baseScreenWidth;
     }
 
     void Update()
@@ -47,7 +55,7 @@ public class ArcRenderer : MonoBehaviour
 
     private void UpdateArc(Vector3 startPos, Vector3 midPoint, Vector3 mousePos)
     {
-        int numDots = Mathf.CeilToInt(Vector3.Distance(startPos, mousePos) / spacing);
+        int numDots = Mathf.CeilToInt(Vector3.Distance(startPos, mousePos) / (spacing * _spacingScale));
 
         for (int i = 0; i < numDots && i < _dotPool.Count; i++)
         {
@@ -98,11 +106,11 @@ public class ArcRenderer : MonoBehaviour
 
     private void PositionAndRotateArrow(Vector3 position)
     {
-       _arrowInstance.transform.position = position;
-       Vector3 direction = _arrowDirection - position;
-       float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-       angle += arrowAngleAdjustment;
-       _arrowInstance.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        _arrowInstance.transform.position = position;
+        Vector3 direction = _arrowDirection - position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle += arrowAngleAdjustment;
+        _arrowInstance.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
 }
