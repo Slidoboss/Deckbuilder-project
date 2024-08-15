@@ -94,6 +94,8 @@ MonoBehaviour:
   spacing: 40
   arrowAngleAdjustment: 130
   dotToSkip: 2
+  baseScreenWidth: 1920
+  _spacingScale: 0
 --- !u!1 &667730816475653427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,19 +1139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectScale: 1.1
-  _cardPlay: {x: 0, y: 270}
-  _playPosition: {x: -700, y: 520, z: 0}
+  _cardPlay: {x: 0, y: 250}
+  _playPosition: {x: -700, y: 500, z: 0}
   _glowEffect: {fileID: 6730408325171031093}
   _playArrow: {fileID: 176107747452401955}
   _lerpFactor: 0.25
   _cardPlayDivider: 4
   _cardPlayMultiplier: 1
-  _needUpdateCardPlayPosition: 1
+  _needUpdateCardPlayPosition: 0
   _playPositionYDivider: 2
   _playPositionYMultiplier: 1
   _playPositionXDivider: -3
   _playPositionXMultiplier: 1.2
-  _needUpdatePlayPosition: 1
+  _needUpdatePlayPosition: 0
 --- !u!1 &5965352275316877615
 GameObject:
   m_ObjectHideFlags: 0
