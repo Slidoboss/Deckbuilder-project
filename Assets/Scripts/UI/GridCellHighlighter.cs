@@ -7,7 +7,7 @@ public class GridCellHighlighter : MonoBehaviour
 {
     private SpriteRenderer _cellSprite;
     private Color _originalColor;
-    private Color _highlightColor = Color.cyan;
+    private Color _highlightColor = Color.red;
     // Start is called before the first frame update
     void Start()
     {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8175517413997808059}
   - component: {fileID: 4028298071847446712}
   - component: {fileID: 4529357525138429210}
+  - component: {fileID: 7586559808606372385}
   m_Layer: 0
   m_Name: GridCellPrefab
   m_TagString: Untagged
@@ -146,3 +147,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7586559808606372385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8442519283109416558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d25c171c7d04c858f2bc6d504d61de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
