@@ -59,8 +59,8 @@ public class ArcRenderer : MonoBehaviour
 
         for (int i = 0; i < numDots && i < _dotPool.Count; i++)
         {
-            float t = i / (float)numDots;
-            t = Mathf.Clamp(t, 0f, 1f);
+            float t = i / (float)numDots; //note 0<=t<=1
+            t = Mathf.Clamp(t, 0f, 1f); //insurance
 
             Vector3 position = QuadraticBezierPoint(startPos, midPoint, mousePos, t);
 
@@ -86,6 +86,8 @@ public class ArcRenderer : MonoBehaviour
 
     private Vector3 QuadraticBezierPoint(Vector3 startPos, Vector3 midPoint, Vector3 mousePos, float t)
     {
+        //This function basically does this ==> B(t) = (1-t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2. 
+        //P1,P2 & P3 are vector locations. 
         float u = 1 - t;
         float tt = t * t;
         float uu = u * u;
