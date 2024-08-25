@@ -15,6 +15,10 @@ namespace SoloudoFiles
         public int damageMin;
         public int damageMax;
         public List<DamageType> damageType;
+        public GameObject prefab;
+        public int range;
+        public AttackPattern attackPattern;
+        public PriorityTarget priorityTarget;
 
 
         public enum CardType
@@ -23,7 +27,15 @@ namespace SoloudoFiles
         }
         public enum DamageType
         {
-             Fire, Earth, Water, Dark, Light, Air
+            Fire, Earth, Water, Dark, Light, Air
+        }
+        public enum AttackPattern
+        {
+            Single, Multitarget, Cross, Column, Row, TwoByTwo, FourByFour
+        }
+        public enum PriorityTarget
+        {
+            Far, Close, LeastCurrentHealth, MostCurrentHealth, MostMaxHealth, MostDamage,
         }
     }
 }
