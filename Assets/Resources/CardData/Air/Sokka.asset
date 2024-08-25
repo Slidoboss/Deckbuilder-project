@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654746a6b7a8400d8ffbe7e5ec64643, type: 3}
   m_Name: Sokka
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 21300000, guid: 4567e0d446c7b4781bd7aef2377288ff, type: 3}
   cardName: Sokka
   cardType: 0500000004000000
   health: 20
   damageMin: 15
   damageMax: 25
   damageType: 04000000
+  prefab: {fileID: 1508163028281027933, guid: 770e831d4bf2c6e4d9b1badae2bc89ea, type: 3}
+  range: 0
+  attackPattern: 0
+  priorityTarget: 0

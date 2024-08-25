@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654746a6b7a8400d8ffbe7e5ec64643, type: 3}
   m_Name: Avatar
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 21300000, guid: 55f7864bd366247d6a1d930c994e5912, type: 3}
   cardName: Avatar
   cardType: 05000000000000000100000002000000
   health: 100
   damageMin: 53
   damageMax: 95
   damageType: 05000000000000000100000002000000
+  prefab: {fileID: 3631956790801623550, guid: 41967c9951d6ffe44b3a88d155445c98, type: 3}
+  range: 0
+  attackPattern: 0
+  priorityTarget: 0
