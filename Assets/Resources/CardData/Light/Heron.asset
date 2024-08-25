@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654746a6b7a8400d8ffbe7e5ec64643, type: 3}
   m_Name: Heron
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 21300000, guid: 4250213e973814c52a4d3db4b4bc5390, type: 3}
   cardName: Heron
   cardType: 04000000
   health: 75
   damageMin: 36
   damageMax: 87
   damageType: 04000000
+  prefab: {fileID: 2946989359822449562, guid: f599d76226aa16e4b87e507fa32dd4b8, type: 3}
+  range: 0
+  attackPattern: 0
+  priorityTarget: 0

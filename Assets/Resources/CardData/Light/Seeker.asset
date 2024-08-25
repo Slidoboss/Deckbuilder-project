@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654746a6b7a8400d8ffbe7e5ec64643, type: 3}
   m_Name: Seeker
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 21300000, guid: 5935fa0490d6a4ec681a72c4a1a79553, type: 3}
   cardName: Seeker
   cardType: 040000000200000000000000
   health: 56
   damageMin: 37
   damageMax: 59
   damageType: 0400000002000000
+  prefab: {fileID: 6929233131096232498, guid: d71e57c21ccdd094d9033c68200f0f4f, type: 3}
+  range: 0
+  attackPattern: 0
+  priorityTarget: 0

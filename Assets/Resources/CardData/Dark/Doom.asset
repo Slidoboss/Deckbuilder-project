@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c654746a6b7a8400d8ffbe7e5ec64643, type: 3}
   m_Name: Doom
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 21300000, guid: cf4140aa9f38748a0a20a4c5c9783593, type: 3}
   cardName: Doom
   cardType: 03000000
   health: 75
   damageMin: 35
   damageMax: 65
   damageType: 03000000
+  prefab: {fileID: 1026345060812982, guid: 25a7836ee8402f9409d698be9b55590b, type: 3}
+  range: 0
+  attackPattern: 0
+  priorityTarget: 0
