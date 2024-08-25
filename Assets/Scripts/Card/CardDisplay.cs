@@ -14,6 +14,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text damageText;
     public Image[] typeImages;
+    public Image displayImage;
 
     private Color[] _cardColors =
     {
@@ -48,6 +49,7 @@ public class CardDisplay : MonoBehaviour
         nameText.text = cardData.cardName;
         healthText.text = cardData.health.ToString();
         damageText.text = $"{cardData.damageMin}-{cardData.damageMax}";
+        displayImage.sprite = cardData.cardSprite;
 
         for (int i = 0; i < typeImages.Length; i++)
         {
