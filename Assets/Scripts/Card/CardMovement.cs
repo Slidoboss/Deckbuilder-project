@@ -14,7 +14,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private int _currentState = 0;
     private Quaternion _originalRotation;
     private Vector3 _originalPosition;
-
+    private GridManager _gridManager;
+    private readonly int maxColumn = 2;
     [SerializeField] private float _selectScale = 1.1f;
     [SerializeField] private Vector2 _cardPlay;
     [SerializeField] private Vector3 _playPosition;
@@ -48,6 +49,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
         UpdateCardPlayPosition();
         UpdatePlayPosition();
+        _gridManager = FindObjectOfType<GridManager>();
     }
 
     void Update()
@@ -75,10 +77,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 break;
             case 3:
                 HandlePlayState();
-                if (!Input.GetMouseButton(0))
-                {
-                    TransitionToStateZero();
-                }
                 break;
         }
     }
@@ -86,6 +84,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void TransitionToStateZero()
     {
         _currentState = 0;
+        GameManager.Instance.isPlayingCard = false;
         _rectTransform.localScale = _originalScale;
         _rectTransform.localRotation = _originalRotation;
         _rectTransform.localPosition = _originalPosition;
@@ -149,8 +148,37 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
     private void HandlePlayState()
     {
+        if (!GameManager.Instance.isPlayingCard)
+        {
+            GameManager.Instance.isPlayingCard = true;
+        }
         _rectTransform.localPosition = _playPosition;
         _rectTransform.localRotation = Quaternion.identity;
+
+        if (!Input.GetMouseButton(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            if (hit.collider != null && hit.collider.GetComponent<GridCell>())
+            {
+                GridCell cell = hit.collider.GetComponent<GridCell>();
+                Vector2 targetPos = cell.gridIndex;
+                if (cell.gridIndex.x < maxColumn)
+                {
+                    bool canPutPrefabInCell = _gridManager.AddObjectToCell(GetComponent<CardDisplay>().cardData.prefab, targetPos);
+                    if (canPutPrefabInCell)
+                    {
+                        HandManager handManager = FindAnyObjectByType(typeof(HandManager)) as HandManager;
+                        handManager.cardsInHand.Remove(gameObject);
+                        handManager.UpdateHandVisuals();
+                        Debug.Log("Placed Character");
+                        Destroy(gameObject);
+                    }
+                }
+
+            }
+            TransitionToStateZero();
+        }
 
         if (Input.mousePosition.y < _cardPlay.y)
         {
@@ -161,21 +189,21 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     private void UpdatePlayPosition()
     {
-         if (_canvasRectTransform != null && _playPositionYDivider != 0 && _playPositionXDivider != 0)
-         {
-            float segmentX = _playPositionXMultiplier/_playPositionXDivider;
-            float segmentY = _playPositionYMultiplier/_playPositionYDivider;
+        if (_canvasRectTransform != null && _playPositionYDivider != 0 && _playPositionXDivider != 0)
+        {
+            float segmentX = _playPositionXMultiplier / _playPositionXDivider;
+            float segmentY = _playPositionYMultiplier / _playPositionYDivider;
 
             _playPosition.x = _canvasRectTransform.rect.width * segmentX;
             _playPosition.y = _canvasRectTransform.rect.height * segmentY;
-         }
+        }
     }
 
     private void UpdateCardPlayPosition()
     {
         if (_cardPlayDivider != 0 && _canvasRectTransform != null)
         {
-            float segment = _cardPlayMultiplier/ _cardPlayDivider;
+            float segment = _cardPlayMultiplier / _cardPlayDivider;
             _cardPlay.y = _canvasRectTransform.rect.height * segment;
         }
     }
