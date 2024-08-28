@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(SpriteRenderer), typeof(GridCell))]
 public class GridCellDisplay : MonoBehaviour
 {
     private SpriteRenderer _cellSprite;
@@ -11,6 +12,8 @@ public class GridCellDisplay : MonoBehaviour
     private Color _positiveColor = Color.green;
     private Color _negativeColor = Color.red;
     private GridCell _gridCell;
+    public GameObject[] backgrounds;
+    private bool _setBackground = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,23 @@ public class GridCellDisplay : MonoBehaviour
         _cellSprite = GetComponent<SpriteRenderer>();
         _gridCell = GetComponent<GridCell>();
         _originalColor = _cellSprite.color;
+    }
+    void Update()
+    {
+        if (!_setBackground) SetBackground();
+    }
+
+    private void SetBackground()
+    {
+        if(_gridCell.gridIndex.x % 2 !=0)
+        {
+            backgrounds[0].SetActive(true);
+        }
+        if(_gridCell.gridIndex.y % 2 != 0)
+        {
+            backgrounds[1].SetActive(true);
+        }
+        _setBackground = true;
     }
 
     void OnMouseEnter()
