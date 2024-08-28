@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class GridCellHighlighter : MonoBehaviour
+public class GridCellDisplay : MonoBehaviour
 {
     private SpriteRenderer _cellSprite;
     private Color _originalColor;
