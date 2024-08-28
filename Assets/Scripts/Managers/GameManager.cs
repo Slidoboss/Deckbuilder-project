@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private int _playerHealth;
     private int _playerXP;
     private int _difficulty = 5;
+    public bool isPlayingCard = false;
     private void Awake()
     {
         //This is the singleton implementation ensuring there's ever only one instance of this class throughout the entire game.
