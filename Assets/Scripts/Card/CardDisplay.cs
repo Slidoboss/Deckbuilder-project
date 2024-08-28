@@ -36,11 +36,6 @@ public class CardDisplay : MonoBehaviour
         Color.cyan, //Air
     };
 
-    void Start()
-    {
-        UpdateCardDisplay();
-    }
-
     public void UpdateCardDisplay()
     {
         cardImage.color = _cardColors[(int)cardData.cardType[0]];
