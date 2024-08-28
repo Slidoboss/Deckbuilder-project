@@ -21,7 +21,6 @@ public class HandManager : MonoBehaviour
     void Update()
     {
         //UpdateHandVisuals();
-        
     }
 
     public void AddCardToHand(Card cardData)
@@ -34,6 +33,7 @@ public class HandManager : MonoBehaviour
 
             //Setup the data of the card object created.
             newCard.GetComponent<CardDisplay>().cardData = cardData;
+            newCard.GetComponent<CardDisplay>().UpdateCardDisplay();
 
             UpdateHandVisuals();
         }
@@ -44,7 +44,7 @@ public class HandManager : MonoBehaviour
 
     }
 
-    private void UpdateHandVisuals()
+    public void UpdateHandVisuals()
     {
         int cardCount = cardsInHand.Count;
         if (cardCount == 1)
