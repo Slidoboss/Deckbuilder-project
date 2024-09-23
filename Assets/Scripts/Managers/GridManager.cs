@@ -15,7 +15,7 @@ public class GridManager : MonoBehaviour
     {
         CreateGrid();
         transform.position = new Vector3(0, 1.25f,0);
-        transform.localScale = new Vector3(1.25f, 1.25f,1f);
+        transform.localScale = new Vector3(1.25f, 1.25f,1.25f);
     }
     void CreateGrid()
     {
